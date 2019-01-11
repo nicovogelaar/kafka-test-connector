@@ -1,0 +1,44 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath "com.commercehub.gradle.plugin:gradle-avro-plugin:0.16.0"
+    }
+}
+
+plugins {
+    id "java"
+}
+apply plugin: "com.commercehub.gradle.plugin.avro"
+
+group 'com.nicovogelaar.kafka.test.connector'
+version '0.1.0'
+
+sourceCompatibility = 1.8
+
+repositories {
+    jcenter()
+    mavenCentral()
+
+    maven {
+        url "https://packages.confluent.io/maven"
+    }
+}
+
+dependencies {
+    compile "org.apache.kafka:connect-api:2.1.0"
+    compile "org.apache.avro:avro:1.8.2"
+    compile "io.confluent:kafka-connect-avro-converter:4.1.0"
+
+    testCompile "junit:junit:4.12"
+
+    runtime "org.apache.avro:avro:1.8.2"
+}
+
+jar {
+    from {
+        configurations.runtime.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+    jar.archiveName = "$project.name-$project.version-all.jar"
+}

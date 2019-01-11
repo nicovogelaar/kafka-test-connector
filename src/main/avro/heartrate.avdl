@@ -1,0 +1,8 @@
+@namespace("com.nicovogelaar.avro")
+protocol HeartRateProtocol {
+  record HeartRate {
+    string personId;
+    int bpm;
+    long time;
+  }
+}

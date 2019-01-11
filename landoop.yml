@@ -1,0 +1,14 @@
+version: "2"
+services:
+  fast-data-dev:
+    image: landoop/fast-data-dev:2.1
+    ports:
+    - 8083:8083
+    - 9092:9092
+    - 2181:2181
+    - 3030:3030
+    environment:
+      RUNTESTS: "0"
+      ADV_HOST: 127.0.0.1
+    volumes:
+    - ./build/libs:/connectors
